@@ -25,6 +25,18 @@ npm test           # compiler, HAL, board and all-experiment tests (headless)
    - Toggle carrier power, and drag motors onto connectors.
 7. **Serial:** in the Console view choose *Command Shell Console*, then *Serial Port* at 115200 baud. This reads USART2 through the ST-LINK virtual COM port. A wrong baud rate shows garbage, as on real hardware.
 
+## Lab Guide — learn the code you type
+
+When a project is open in the IDE, the **💡 Lab Guide** marks every line *you* wrote: anything that differs from what CubeMX generated for that configuration. Lines are colour-coded by topic (GPIO, timing, ADC, UART/printf, PWM, motors, calculation, C).
+
+- **Hover** a highlighted line to see what it does, a memory hook, and which other experiments use the same snippet.
+- **Click the coloured bar / 💡** next to the line, or press **Ctrl+Shift+E** (also in the right-click menu), to open the full card in the Lab Guide panel.
+- Each card has **Also used in** chips that show the same snippet in other experiments, with an option to open that experiment.
+- **✍ Practice** asks you to type the snippet from memory and checks it, ignoring spaces, braces and comments.
+- **☆ Save to cheat sheet** collects snippets in the *Cheat sheet* tab, which you can copy as Markdown.
+
+The snippet knowledge base is `src/guide/snippets.ts`; add an entry there to explain new code patterns.
+
 ## Lab experiments (`research/`)
 
 | File | What it does | Bench |

@@ -62,7 +62,7 @@ export interface Store {
   revealLine: { file: FileRef; line: number; n: number } | null;
   buildLog: ConsoleLine[];
   problems: Diag[];
-  bottomTab: 'console' | 'problems' | 'live' | 'variables' | 'breakpoints' | 'logic';
+  bottomTab: 'console' | 'problems' | 'live' | 'variables' | 'breakpoints' | 'logic' | 'guide';
   consoleView: 'build' | 'serial' | 'debug';
   debugLog: ConsoleLine[];
   serial: SerialUi;
@@ -71,8 +71,12 @@ export interface Store {
   parts: PartsConfig;
   watchExprs: string[];
   dirty: Record<string, boolean>;
+  guideHighlight: boolean;
+  guideFocus: { snippetId: string; line: number; n: number } | null;
+  cheatSheet: string[];
   boardVisible: boolean;
   boardWidth: number;
+  bottomHeight: number;
   logicPins: string[];
   set: (p: Partial<Store> | ((s: Store) => Partial<Store>)) => void;
 }
@@ -126,8 +130,12 @@ export const useStore = create<Store>((set) => ({
   parts: { motor1: false, motor2: false, stepper: false, servo1: false, servo2: false, pt100: false },
   watchExprs: (ui.watchExprs as string[]) ?? [],
   dirty: {},
+  guideHighlight: (ui.guideHighlight as boolean) ?? true,
+  guideFocus: null,
+  cheatSheet: (ui.cheatSheet as string[]) ?? [],
   boardVisible: (ui.boardVisible as boolean) ?? true,
   boardWidth: (ui.boardWidth as number) ?? 640,
+  bottomHeight: (ui.bottomHeight as number) ?? 300,
   logicPins: (ui.logicPins as string[]) ?? ['PA5', 'PB7', 'PA6', 'PA7', 'PA10', 'PC8'],
   set: (p) => set(p as never),
 }));
@@ -144,11 +152,11 @@ useStore.subscribe((s, prev) => {
       }
     }, 400);
   }
-  if (s.app !== prev.app || s.activeProjectId !== prev.activeProjectId || s.openFiles !== prev.openFiles || s.activeFile !== prev.activeFile || s.watchExprs !== prev.watchExprs || s.boardVisible !== prev.boardVisible || s.boardWidth !== prev.boardWidth || s.logicPins !== prev.logicPins) {
+  if (s.app !== prev.app || s.activeProjectId !== prev.activeProjectId || s.openFiles !== prev.openFiles || s.activeFile !== prev.activeFile || s.watchExprs !== prev.watchExprs || s.boardVisible !== prev.boardVisible || s.boardWidth !== prev.boardWidth || s.logicPins !== prev.logicPins || s.bottomHeight !== prev.bottomHeight || s.guideHighlight !== prev.guideHighlight || s.cheatSheet !== prev.cheatSheet) {
     try {
       localStorage.setItem(
         LS_UI,
-        JSON.stringify({ app: s.app, activeProjectId: s.activeProjectId, openFiles: s.openFiles, activeFile: s.activeFile, watchExprs: s.watchExprs, boardVisible: s.boardVisible, boardWidth: s.boardWidth, logicPins: s.logicPins }),
+        JSON.stringify({ app: s.app, activeProjectId: s.activeProjectId, openFiles: s.openFiles, activeFile: s.activeFile, watchExprs: s.watchExprs, boardVisible: s.boardVisible, boardWidth: s.boardWidth, logicPins: s.logicPins, bottomHeight: s.bottomHeight, guideHighlight: s.guideHighlight, cheatSheet: s.cheatSheet }),
       );
     } catch {
       /* ignore */

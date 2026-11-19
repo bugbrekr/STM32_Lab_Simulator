@@ -314,9 +314,18 @@
 .dim {
   color: #666;
 }
+.hsplit {
+  height: 5px;
+  cursor: row-resize;
+  background: #d8d8d8;
+  border-top: 1px solid #bbb;
+  flex-shrink: 0;
+}
+.hsplit:hover {
+  background: #9cc1ea;
+}
 .bottom-host {
-  height: 240px;
-  border-top: 1px solid #c8c8c8;
+  height: 300px;
   flex-shrink: 0;
 }
 .bottom {

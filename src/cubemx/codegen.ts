@@ -519,7 +519,9 @@ ${order.map((p) => `  ${initName(p)}();\n`).join('')}  /* USER CODE BEGIN 2 */
 
 ${genSystemClock(c)}
 `;
-  for (const p of order) {
+  // CubeMX defines the init functions in a fixed peripheral order (ADC, TIMx, USART), independent of call order
+  const rank = (p: string) => (p === 'ADC1' ? 0 : p.startsWith('TIM') ? 100 + Number(p.slice(3)) : 1000);
+  for (const p of [...order].sort((a, b) => rank(a) - rank(b))) {
     if (p === 'ADC1') s += genAdc(c) + '\n';
     else if (p === 'USART2') s += genUsart(c) + '\n';
     else s += genTim(c, p as TimerName) + '\n';

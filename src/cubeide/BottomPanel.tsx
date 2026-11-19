@@ -4,6 +4,7 @@ import { revealLine, serialSend, serialClear, serialDisconnect, setWatches, setL
 import type { VarNode } from '../sim/simulator';
 import { Icon } from './icons';
 import { GPIO_PINS } from '../sim/mcu/pins';
+import { LabGuide } from '../guide/LabGuide';
 
 function VarTree({ nodes, depth = 0 }: { nodes: VarNode[]; depth?: number }) {
   const [open, setOpen] = useState<Record<string, boolean>>({});
@@ -378,6 +379,7 @@ export function BottomPanel() {
   const serialOpen = useStore((s) => s.serial.open);
   const [menu, setMenu] = useState(false);
   const tabs: [typeof tab, string][] = [
+    ['guide', '💡 Lab Guide'],
     ['problems', `Problems${problems.length ? ` (${problems.length})` : ''}`],
     ['console', 'Console'],
     ['variables', 'Variables'],
@@ -424,6 +426,7 @@ export function BottomPanel() {
         {tab === 'breakpoints' && <Breakpoints />}
         {tab === 'live' && <LiveExpressions />}
         {tab === 'logic' && <LogicAnalyzer />}
+        {tab === 'guide' && <LabGuide />}
       </div>
     </div>
   );

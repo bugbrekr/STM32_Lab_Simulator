@@ -132,7 +132,10 @@ function renameProject(p: Project, name: string): Project {
 export function openExample(ex: Example, target: 'ide' | 'mx' = 'ide') {
   const p = addProject(projectFromExample(ex));
   setParts({ ...defaultParts(), ...p.parts });
-  if (target === 'ide') openFile({ projectId: p.id, path: 'Core/Src/main.c' });
+  if (target === 'ide') {
+    openFile({ projectId: p.id, path: 'Core/Src/main.c' });
+    set({ bottomTab: 'guide' });
+  }
   else openInMx(p.id);
   return p;
 }

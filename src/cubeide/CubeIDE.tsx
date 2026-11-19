@@ -405,6 +405,8 @@ export function CubeIDE() {
                     {menuItem(`${s.boardVisible ? 'Hide' : 'Show'} Lab Bench (board view)`, () => s.set({ boardVisible: !s.boardVisible }))}
                     {menuItem('Open Lab Bench in new window', () => window.open(`${location.pathname}?view=board`, 'stm32bench', 'width=1200,height=800'))}
                     <hr />
+                    {menuItem(`${s.guideHighlight ? 'Hide' : 'Highlight'} my code (Lab Guide)`, () => s.set({ guideHighlight: !s.guideHighlight }))}
+                    {menuItem('Show View ▸ Lab Guide', () => s.set({ bottomTab: 'guide' }))}
                     {menuItem('Show View ▸ Console', () => s.set({ bottomTab: 'console' }))}
                     {menuItem('Show View ▸ Problems', () => s.set({ bottomTab: 'problems' }))}
                     {menuItem('Show View ▸ Live Expressions', () => s.set({ bottomTab: 'live' }))}
@@ -469,6 +471,13 @@ export function CubeIDE() {
         <button title="Open serial console (Command Shell Console)" onClick={() => (s.set({ bottomTab: 'console', consoleView: 'serial' }), !s.serial.open && setSerialDlg(true))}>
           <Icon name="console" /> <span className="tbtext">Serial</span>
         </button>
+        <button
+          title="Lab Guide: highlight and explain the code you type"
+          className={s.guideHighlight ? 'on' : ''}
+          onClick={() => s.set({ guideHighlight: !s.guideHighlight || s.bottomTab !== 'guide', bottomTab: 'guide' })}
+        >
+          💡 <span className="tbtext">Lab Guide</span>
+        </button>
         <button title="Show/Hide the Lab Bench" onClick={() => s.set({ boardVisible: !s.boardVisible })} className={s.boardVisible ? 'on' : ''}>
           <Icon name="board" /> <span className="tbtext">Lab Bench</span>
         </button>
@@ -531,7 +540,20 @@ export function CubeIDE() {
               </div>
             )}
           </div>
-          <div className="bottom-host">
+          <div
+            className="hsplit"
+            onPointerDown={(e) => {
+              dragging.current = true;
+              (e.target as Element).setPointerCapture(e.pointerId);
+            }}
+            onPointerMove={(e) => {
+              if (!dragging.current) return;
+              const h = Math.max(120, Math.min(window.innerHeight - 220, window.innerHeight - e.clientY - 22));
+              s.set({ bottomHeight: h });
+            }}
+            onPointerUp={() => (dragging.current = false)}
+          />
+          <div className="bottom-host" style={{ height: s.bottomHeight }}>
             <BottomPanel />
           </div>
         </div>
