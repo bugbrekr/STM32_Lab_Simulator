@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #1e1f22;
+}
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.taskbar {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  background: #101114;
+  color: #ddd;
+  padding: 0 6px;
+  gap: 2px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #000;
+}
+.taskbar .brand {
+  font-weight: 700;
+  color: #9fc4ff;
+  margin-right: 12px;
+  letter-spacing: 0.3px;
+}
+.taskbar .task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  height: 26px;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+.taskbar .task:hover {
+  background: #22252b;
+}
+.taskbar .task.active {
+  background: #2b2f36;
+  color: #fff;
+  border-color: #3a3f48;
+  border-bottom-color: transparent;
+}
+.taskbar .task .ico {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  color: #fff;
+}
+.taskbar .spacer {
+  flex: 1;
+}
+.taskbar .hint {
+  color: #8a8f98;
+  font-size: 11px;
+}
+.app-host {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+.app-host > .app {
+  position: absolute;
+  inset: 0;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

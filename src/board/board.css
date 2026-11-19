@@ -1,0 +1,239 @@
+.boardsvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+  background: radial-gradient(ellipse at center, #3b3f45 0%, #26292d 70%);
+}
+.boardsvg .silk {
+  fill: #f2f2f2;
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  letter-spacing: 0.2px;
+}
+.boardsvg .terminal {
+  fill: #2ea84f;
+  stroke: #1a6b31;
+  stroke-width: 1.5;
+}
+.boardsvg .screw {
+  fill: #c9c9c9;
+  stroke: #777;
+}
+.boardsvg .screwslot {
+  stroke: #555;
+  stroke-width: 2;
+}
+.boardsvg .jst {
+  fill: #f4f1e8;
+  stroke: #b9b39c;
+}
+.boardsvg .jstpin {
+  fill: #ccc6ad;
+}
+.boardsvg .chip {
+  fill: #1c1c1c;
+  stroke: #000;
+}
+.boardsvg .chiptext {
+  fill: #8a8a8a;
+  font-family: monospace;
+}
+.boardsvg .leg {
+  fill: #b8b8b8;
+}
+.boardsvg .cap {
+  fill: #c7c9cc;
+  stroke: #888;
+}
+.boardsvg .btn {
+  cursor: pointer;
+}
+.boardsvg .btn:hover rect:first-child {
+  stroke: #ffd54a;
+}
+.boardsvg .dropzone {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-dasharray: 6 6;
+  stroke-width: 2;
+}
+.boardsvg .dropzone.over {
+  fill: rgba(80, 180, 255, 0.18);
+  stroke: #4fb3ff;
+}
+.boardsvg .dropzone.hidden {
+  display: none;
+}
+.boardsvg .part .readout rect {
+  fill: rgba(10, 14, 20, 0.85);
+  stroke: #445;
+}
+.boardsvg .part .readout text {
+  fill: #e8f1ff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+.boardsvg .part .readout text.small {
+  fill: #a9b8cc;
+  font-size: 11px;
+  font-weight: 400;
+}
+.boardsvg .part .readout text.warn {
+  fill: #ffb347;
+  font-size: 11px;
+  font-weight: 600;
+}
+.boardsvg .detach {
+  cursor: pointer;
+  opacity: 0.35;
+}
+.boardsvg .part:hover .detach {
+  opacity: 1;
+}
+.boardsvg .detach circle {
+  fill: #c0392b;
+}
+.boardsvg .detach text {
+  fill: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.boardsvg .blink {
+  animation: blink 0.15s infinite alternate;
+}
+@keyframes blink {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+/* ---------- bench panel ---------- */
+.bench {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #2b2e33;
+  color: #e7e9ec;
+  font: 12px 'Segoe UI', Arial, sans-serif;
+  min-width: 0;
+}
+.bench-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: #1f2226;
+  border-bottom: 1px solid #111;
+  flex-wrap: wrap;
+}
+.bench-top .title {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.bench-top .spacer {
+  flex: 1;
+}
+.bench-top button,
+.bench-controls button {
+  background: #3a3f46;
+  color: #e7e9ec;
+  border: 1px solid #555;
+  border-radius: 3px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.bench-top button:hover,
+.bench-controls button:hover {
+  background: #4a5058;
+}
+.bench-top select {
+  background: #3a3f46;
+  color: #e7e9ec;
+  border: 1px solid #555;
+  font-size: 12px;
+}
+.bench-status {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.bench-status.running {
+  background: #1e6b3a;
+}
+.bench-status.paused {
+  background: #8a6d1a;
+}
+.bench-status.fault {
+  background: #8e2020;
+}
+.bench-status.idle,
+.bench-status.halted {
+  background: #444;
+}
+.bench-canvas {
+  flex: 1;
+  min-height: 200px;
+  position: relative;
+}
+.bench-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 6px 14px;
+  padding: 6px 10px;
+  background: #24272b;
+  border-top: 1px solid #111;
+}
+.bench-controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.bench-controls input[type='range'] {
+  flex: 1;
+  min-width: 60px;
+}
+.drawer {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.drawer .chipbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid #556;
+  background: #33373d;
+  cursor: grab;
+  font-size: 11px;
+}
+.drawer .chipbtn.on {
+  background: #1e5a8a;
+  border-color: #4fb3ff;
+}
+.bench-status-text {
+  padding: 3px 10px;
+  background: #3a1d1d;
+  color: #ffb3a8;
+  font-size: 12px;
+  border-top: 1px solid #111;
+}
+.bench-status-text.info {
+  background: #2a3340;
+  color: #cde;
+}
+.boardsvg .dropzone-text {
+  fill: rgba(255, 255, 255, 0.28);
+  font: 600 13px 'Segoe UI', Arial, sans-serif;
+  pointer-events: none;
+}
